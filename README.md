@@ -1,4 +1,4 @@
-# README soubor
+# KOMENTÁŘ K VYPRACOVÁNÍ
 
 1) V kódu jsem použila následující technologie:
 
