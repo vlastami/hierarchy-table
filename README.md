@@ -1,70 +1,25 @@
-# Getting Started with Create React App
+# README soubor
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+1) V kódu jsem použila následující technologie:
 
-## Available Scripts
+- **React.js**: pro tvorbu uživatelského rozhraní a komponent `HierarchyTable`, `HierarchyItem` a `RemoveButton`.
+  - React hook **useState**, použitý pro sledování rozšíření a sbalení položek v hierarchickém zobrazení.
 
-In the project directory, you can run:
+- **Redux**: pro správu stavu aplikace (v tomto rozsahu by stačilo sice použít useState, ale vycházela jsem z požadavku v zadání, že mám uvažovat středně velkou aplikaci)
+  - React-Redux hooky **useSelector** a **useDispatch** použité pro získání dat ze stavu Redux store a pro odesílání akcí do store.
+  - funkce **removeItem** pro odstranění položky z dat podle zadaného ID. Tato funkce je použita v reduceru pro akci "REMOVE_ITEM".
 
-### `npm start`
+2) Problémy, které vyvstaly při řešení úkolu:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- V datech jsou dva téměř identické objekty (lišící se pouze hodnotou v jednom sloupci), takže mazání přes ID selhává. Při pokusu o odstranění jednoho z těchto objektů může dojít k nežádoucím výsledkům, jako je odstranění obou objektů nebo nemožnost odstranění jednoho z nich (v tomto scénáři jsem se zacyklila a vzhledem k času jsem tento problém nestihla dořešit). Kdybych měla více času, zkusila bych tuto situaci ošetřit (například přidáním opravdu unikátního ID všem objektům, případně filtrováním podle obsahu celého pole převedeného na string. Tento postup jsem sice částečně zkoušela, ale vyvstal pak problém s mazáním parentů v případě, že jsem mazala jejich děti, možná bych tedy musela zvolit jiný přístup a možná přepsat celou funkci vymazávání).
+Nestihla jsem implementovat odstraňování dat přímo z json souboru. Pro tento úkol bych postupovala následujícím způsobem:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+3) Nesplněný úkol: Mazání dat z json souboru; v současnosti mažu data pouze z jeho kopie v Redux Store, tj. neukládám
+Postup, pokud bych měla čas implementovat tuto funkcionalitu:
+- Po úspěšném smazání položky bych vytvořila nový JSON objekt obsahující aktuální stav dat.
+- Poté bych uložila tento nový JSON objekt zpět do souboru, čímž bych aktualizovala data uložená v souboru. Toto by mohlo být provedeno například pomocí knihovny `fs` (File System) v Node.js prostředí nebo pomocí serverového API, které by mělo být schopno upravit a uložit JSON soubor na serveru. 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Vzhledem k tomu, že jsem se měla soustředit na frontend a toto už zasahuje i do backendu, rozhodla jsem se zpočátku pracovat bez této funkcionality, avšak později jsem usoudila, že jsem možnou budoucí implementaci měla promyslet. K tomu bych ale potřebovala více informací a konzultaci s backend vývojářem. Stejně tak bych více konzultovala, co se má stát s duplicitními daty a jestli není chyba na straně databáze. 
+Celkově byl pro mě úkol zajímavou výzvou, avšak při skutečné práci bych při takovémto zadání potřebovala konzultovat nejasnosti, abych se vyhnula časovým prodlevám a zdlouhavé implementaci něčeho zbytečného.
